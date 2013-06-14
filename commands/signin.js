@@ -14,7 +14,7 @@ module.exports = function(data,server,client,rspn)
 		return ;
 	}
 
-	server.db.colle('users').findOne(data,function(err,doc){
+	helper.db.coll("ocuser/users").findOne(data,function(err,doc){
 
 		if(err)
 		{
@@ -36,7 +36,7 @@ module.exports = function(data,server,client,rspn)
 			server.onlines[doc.id] = client ;
 
 			// 聊天室
-			server.db.colle("rooms-users").find({user:doc.id}).toArray(function(err,docs){
+			helper.db.coll("rooms-users").find({user:doc.id}).toArray(function(err,docs){
 
 				if(err)
 				{
@@ -72,7 +72,7 @@ module.exports = function(data,server,client,rspn)
 				server.presence(client.session.user.id,client.session.user.presence) ;
 
 				// 处理离线消息
-				var collmsg = server.db.colle('messages') ;
+				var collmsg = helper.db.coll('messages') ;
 				collmsg.find({readed:0,to:doc.id}).each(function(err,msg){
 					if(err) console.log(err) ;
 

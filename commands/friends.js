@@ -3,7 +3,7 @@ var Steps = require("ocsteps") ;
 module.exports = function(data,server,client,rspn)
 {
 
-	var usercoll = server.db.colle('users') ;
+	var usercoll = helper.db.coll("ocuser/users") ;
 	var userlist = [] ;
 
 	Steps(
@@ -21,7 +21,7 @@ module.exports = function(data,server,client,rspn)
 
 			var steps = this ;
 			var release = this.hold() ;
-			server.db.colle('subscriptions').find(condition).each(function(err,doc){
+			helper.db.coll('subscriptions').find(condition).each(function(err,doc){
 				console.log('subscriptions,',arguments) ;
 				if(err)
 				{

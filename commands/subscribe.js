@@ -6,7 +6,7 @@ module.exports = function(data,server,client,rspn)
 		return ;
 	}
 
-	server.db.colle("users").findOne({id:parseInt(data.to)},function(err,userdoc){
+	helper.db.coll("ocuser/users").findOne({id:parseInt(data.to)},function(err,userdoc){
 
 		if(err)
 		{
@@ -20,7 +20,7 @@ module.exports = function(data,server,client,rspn)
 			return ;
 		}
 
-		server.db.colle("subscriptions").insert(
+		helper.db.coll("subscriptions").insert(
 			{
 				from: client.session.user.id
 				, to: parseInt(data.to)

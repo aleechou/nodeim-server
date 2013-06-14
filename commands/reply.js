@@ -6,7 +6,7 @@ module.exports = function(data,server,client,rspn)
 		return ;
 	}
 	
-	var coll = server.db.colle('subscriptions') ;
+	var coll = helper.db.coll('subscriptions') ;
 	var condition = {
 		to: client.session.user.id
 		, from: parseInt(data.to)

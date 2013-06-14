@@ -16,7 +16,7 @@ module.exports = function(data,server,client,rspn)
 		find.room = parseInt(data.room) ;
 	}
 
-	server.db.colle("messages").find(find).page(20,data.page||1,function(err,page){
+	helper.db.coll("messages").find(find).page(20,data.page||1,function(err,page){
 
 		if(err)
 		{

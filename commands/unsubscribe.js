@@ -6,7 +6,7 @@ module.exports = function(data,server,client,rspn)
 		return ;
 	}
 
-	server.db.colle("subscriptions").remove(
+	helper.db.coll("subscriptions").remove(
 		{
 			to:parseInt(data.to)
 			, from:client.session.user.id

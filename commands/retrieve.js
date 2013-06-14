@@ -6,7 +6,7 @@ module.exports = function(data,server,client,rspn)
 		return ;
 	}
 
-	server.db.colle("users").findOne({username:data.username},function(err,doc){
+	helper.db.coll("ocuser/users").findOne({username:data.username},function(err,doc){
 
 		if(err)
 		{
@@ -35,7 +35,7 @@ module.exports = function(data,server,client,rspn)
 				return ;
 			}
 
-			server.db.colle("users").update({username:data.username},{$set:{password:data.newpassword}},function(err,doc){
+			helper.db.coll("ocuser/users").update({username:data.username},{$set:{password:data.newpassword}},function(err,doc){
 				if(err)
 					console.log(err) ;
 

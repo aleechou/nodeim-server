@@ -13,7 +13,7 @@ module.exports = function(server)
 			, creator: creatorDoc.id
 		}
 
-		server.db.colle("rooms").insert(
+		helper.db.coll("rooms").insert(
 			roomdoc
 			, function(err,docs){
 
@@ -23,7 +23,7 @@ module.exports = function(server)
 					return ;
 				}
 
-				server.db.autoIncreaseId('rooms',{_id:docs[0]._id},'id',function(err,id){
+				helper.db.autoIncreaseId('rooms',{_id:docs[0]._id},'id',function(err,id){
 
 					if(err)
 					{
@@ -50,7 +50,7 @@ module.exports = function(server)
 			function(){
 
 				var release = this.hold() ;
-				server.db.colle("rooms").find().each(function(err,doc){
+				helper.db.coll("rooms").find().each(function(err,doc){
 
 					release() ;
 
@@ -109,7 +109,7 @@ function Room(doc,server)
 
 				// 用户名单
 				var release = this.hold() ;
-				server.db.colle('rooms-users').find({room:self.id}).each(function(err,doc){
+				helper.db.coll('rooms-users').find({room:self.id}).each(function(err,doc){
 
 					release() ;
 
@@ -123,7 +123,7 @@ function Room(doc,server)
 					{
 
 						var releaseUser = steps.hold() ;
-						server.db.colle('users').findOne(
+						helper.db.coll("ocuser/users").findOne(
 							{ id: doc.user }
 							,function(err,userdoc){
 
@@ -153,7 +153,7 @@ function Room(doc,server)
 		if( !this.users[userDoc.id] )
 		{
 			// 加入聊天室
-			server.db.colle("rooms-users").insert(
+			helper.db.coll("rooms-users").insert(
 				{
 					room: self.id
 					, user: userDoc.id
@@ -201,7 +201,7 @@ function Room(doc,server)
 		delete this.users[userid] ;
 
 		// 从数据库移除
-		server.db.colle("rooms-users").remove(
+		helper.db.coll("rooms-users").remove(
 			{
 				room: this.id
 				, user: userid

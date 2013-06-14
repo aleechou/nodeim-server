@@ -8,7 +8,7 @@ module.exports = function(data,server,client,rspn)
 		return ;
 	}
 
-	server.db.colle("users").update(
+	helper.db.coll("ocuser/users").update(
 		{id:client.session.user.id}
 		, {$set:data.doc}
 		, function(err){

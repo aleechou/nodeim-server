@@ -4,7 +4,6 @@ module.exports = function(app){
 	, fs = require('fs')
 	, Steps = require('ocsteps')
 	, mongodb = require('mongodb')
-	, DBHelper = require('./DBHelper')
 	, Rooms = require("./Rooms.js") ;
 
 	var commands = [
@@ -32,42 +31,16 @@ module.exports = function(app){
 	] ;
 
 	var server = module.exports.server = {
-		db: null 
-		, onlines: {}
+		onlines: {}
 		, rooms: null
 		, message: undefined 
 	} ;
 
 
 	Steps(
-		// 连接数据库
-		function(){
-			var server = new mongodb.Server('127.0.0.1',27017) ;
-			(new mongodb.Db("im",server,{w:1})).open(this.hold()) ;
-		}
-		, function(err,client){
-			if( err || !client )
-			{
-				throw new Error("无法链接到数据库："+err) ;
-			}
-			console.log("已经连接到数据库") ;
-			server.db = new DBHelper(client) ;
-
-			// 建立索引
-			client.ensureIndex('users',{username:-1},  {background: true,unique:true}, function(){}) ;
-			client.ensureIndex('users',{id:-1},  {background: true,unique:true}, function(){}) ;
-
-			client.ensureIndex('messages',{readed:-1,to:-1},  {background: true}, function(){}) ;
-
-			client.ensureIndex('subscriptions',{from:1,to:1},  {background:true, unique:true}, function(){}) ;
-			client.ensureIndex('subscriptions',{to:1,from:1},  {background:true}, function(){}) ;
-
-			client.ensureIndex('rooms',{id:1},  {background:true,unique:true}, function(){}) ;
-			client.ensureIndex('rooms-users',{room:1,user:1},  {background:true,unique:true}, function(){}) ;
-		}
 
 		// 加载聊天室
-		, function(){
+		function(){
 
 			server.rooms = new Rooms(server) ;
 			server.rooms.init(this.hold()) ;
@@ -155,7 +128,7 @@ module.exports = function(app){
 	{
 		to = parseInt(to) ;
 		var server = this ;
-		this.db.colle("users").findOne({id:to},function(err,toDoc){
+		helper.db.colle("ocuser/users").findOne({id:to},function(err,toDoc){
 
 			if(err)
 			{
@@ -191,7 +164,7 @@ module.exports = function(app){
 			}
 
 			// 记录到数据库
-			server.db.colle('messages').insert(doc,function(err){
+			helper.db.coll('messages').insert(doc,function(err){
 				//console.log("save to messages:",doc,arguments) ;
 				if(err)
 				{
@@ -207,7 +180,7 @@ module.exports = function(app){
 	server.presence = function(id,presence)
 	{
 		// 通知
-		this.db.colle('subscriptions').find(
+		helper.db.coll('subscriptions').find(
 			{
 				to: id
 				, agree: 1

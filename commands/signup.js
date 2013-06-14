@@ -8,7 +8,7 @@ module.exports = function(data,server,client,rspn)
 		return ;
 	}
 
-	server.db.colle("users").insert(data,function(err,docs){
+	helper.db.coll("ocuser/users").insert(data,function(err,docs){
 
 		if( err )
 		{
@@ -26,7 +26,7 @@ module.exports = function(data,server,client,rspn)
 
 		console.log('insert',arguments) ;
 
-		server.db.autoIncreaseId('users',{_id:docs[0]._id},'id',function(err,id){
+		helper.db.autoIncreaseId("ocuser/users",{_id:docs[0]._id},'id',function(err,id){
 			if( err )
 			{
 				console.log(err) ;

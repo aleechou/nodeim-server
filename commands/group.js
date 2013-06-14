@@ -15,7 +15,7 @@ module.exports = function(data,server,client,rspn)
 		to:parseInt(data.to)
 		, from: client.session.user.id
 	} ;
-	var coll = server.db.colle("subscriptions") ;
+	var coll = helper.db.coll("subscriptions") ;
 
 	coll.findOne(condition,function(err,doc){
 

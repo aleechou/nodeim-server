@@ -2,7 +2,7 @@
 
 module.exports = function(data,server,client,rspn)
 {
-	server.db.colle('users')
+	helper.db.coll("ocuser/users")
 		.find(data).limit(30)
 		.toArray(function(err,docs){
 			if(err)
