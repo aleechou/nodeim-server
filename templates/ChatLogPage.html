@@ -1,0 +1,22 @@
+<include file="ocframework/templates/paginator.html" model="@page" model.url="/ocuser/lib/UserList:page?page=%pagenum%" />
+
+<table class="table table-striped table-hover">
+
+    <thaed>
+        <tr>
+            <th>内容</th>
+        </tr>
+    </thaed>
+
+    <foreach for="@page.docs" var="doc">
+        <tr>
+            <td>
+                {@doc.message}
+            </td>
+        </tr>
+    </foreach>
+
+
+</table>
+
+<include file="ocframework/templates/paginator.html" model="@page" model.url="/nodeim-server/ChatLog:page?page=%pagenum%" />
