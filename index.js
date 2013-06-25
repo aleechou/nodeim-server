@@ -128,7 +128,7 @@ module.exports = function(app){
 	{
 		to = parseInt(to) ;
 		var server = this ;
-		helper.db.colle("ocuser/users").findOne({id:to},function(err,toDoc){
+		helper.db.coll("ocuser/users").findOne({id:to},function(err,toDoc){
 
 			if(err)
 			{
