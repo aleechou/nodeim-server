@@ -21,8 +21,27 @@ exports.onload = function(app)
 	helper.template("ocuser/templates/UserListPage.html",function(err,tpl){
 		tpl.$("table.usrlst thaed tr th").last().before("<th>状态</th>") ;
 		tpl.$("table.usrlst tbody tr td.useroptd").before("<td><img src='/nodeim-server/Status?id={@doc.id}' /></td>") ;
-
+		
 		// 重新编译模板
 		tpl.compile() ;
 	})
+	
+	
+
+	helper.template("ocframework/templates/ControlPanel.html",this.hold(function(err,tpl){
+
+		if(err) throw err ;
+
+		tpl.$("#sidemenu").prepend(
+			'<li id="sidemenu-item-user">'
+				+ '<h3>其它操作</h3>'
+				+ '<ul class="toggle">'
+				+ '<li><i class="icon-group"></i> <a class="stay" href="/nodeim-server/ChatLog">聊天记录</a></li>'
+				+ '<li><i class="icon-group"></i> <a class="stay" href="/nodeim-server/AllSend">消息群发</a></li>'
+				+ '</ul>'
+				+ '</li>'
+		) ;
+
+		tpl.compile() ;
+	})) ;
 }
