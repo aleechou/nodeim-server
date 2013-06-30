@@ -1,0 +1,35 @@
+<form class="form-horizontal" method="post">
+    <fieldset>
+        <div id="legend" class="">
+            <legend class="">ID 设置</legend>
+        </div>
+        <div class="control-group">
+
+            <!-- Text input-->
+            <label class="control-label" for="input01">用户ID不小于：</label>
+            <div class="controls">
+                <input type="text" placeholder="不能低于 {@$model.useridlow}" class="input-xlarge" name="useridlow">
+                <p class="help-block">系统自动分配用户ID的最小阀值 {@$model.useridlow}</p>
+            </div>
+        </div>
+
+        <div class="control-group">
+
+            <!-- Text input-->
+            <label class="control-label" for="input01">聊天室ID不小于：</label>
+            <div class="controls">
+                <input type="text" placeholder="不能低于 {@$model.roomidlow}" class="input-xlarge" name="roomidlow">
+                <p class="help-block">系统自动分配聊天室ID的最小阀值 {@$model.roomidlow}</p>
+            </div>
+        </div>
+
+        <div class="control-group">
+
+            <!-- Button -->
+            <div class="controls">
+                <button class="btn btn-success">保存</button>
+            </div>
+        </div>
+
+    </fieldset>
+</form>
