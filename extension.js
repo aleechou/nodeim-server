@@ -34,10 +34,11 @@ exports.onload = function(app)
 
 		tpl.$("#sidemenu").prepend(
 			'<li id="sidemenu-item-user">'
-				+ '<h3>其它操作</h3>'
+				+ '<h3>即时通讯</h3>'
 				+ '<ul class="toggle">'
 				+ '<li><i class="icon-group"></i> <a class="stay" href="/nodeim-server/ChatLog">聊天记录</a></li>'
 				+ '<li><i class="icon-group"></i> <a class="stay" href="/nodeim-server/AllSend">消息群发</a></li>'
+				+ '<li><i class="icon-group"></i> <a class="stay" href="/nodeim-server/IdSetting">ID设置</a></li>'
 				+ '</ul>'
 				+ '</li>'
 		) ;
